@@ -512,17 +512,17 @@ ${coinPi.aff.limited}
     //     ctx.reply(' اأنت غير مشترك في القناة.', { reply_markup: replyMarkup2 });
     // }
 });
-// app.listen(3000, () => {
-//     bot.telegram.setWebhook(`${process.env.RENDER_EXTERNAL_URL}/bot`)
-//         .then(() => {
-//             console.log('Webhook Set ✅ & Server is running on port 3000 💻');
-//             keepAppRunning();
-//         });
-// });
-bot.launch({ webhook: { domain: "https://661c-154-247-38-190.ngrok-free.app", port: 5000 }, allowedUpdates: ['message', 'callback_query'], })
-    .then(() => {
-        console.log('Bot is running');
-    })
-    .catch((error) => {
-        console.error('Error starting the bot:', error);
-    });
+app.listen(3000, () => {
+    bot.telegram.setWebhook(`${process.env.RENDER_EXTERNAL_URL}/bot`)
+        .then(() => {
+            console.log('Webhook Set ✅ & Server is running on port 3000 💻');
+            keepAppRunning();
+        });
+});
+// bot.launch({ webhook: { domain: "https://661c-154-247-38-190.ngrok-free.app", port: 5000 }, allowedUpdates: ['message', 'callback_query'], })
+//     .then(() => {
+//         console.log('Bot is running');
+//     })
+//     .catch((error) => {
+//         console.error('Error starting the bot:', error);
+//     });
