@@ -1,0 +1,20 @@
+{
+  "name": "code-bot-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.42.5",
+    "axios": "^1.6.8",
+    "crypto": "^1.0.1",
+    "express": "^4.19.2",
+    "https": "^1.0.0",
+    "telegraf": "^4.16.3"
+  }
+}
