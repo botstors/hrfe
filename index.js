@@ -245,8 +245,8 @@ bot.on('text', async (ctx) => {
                             else {
                                 idCatcher(links[0]).then(response_link => {
                                     console.log(response_link)
-                                    user[0].links.push(" " + links[0])
-                                    updateUser(ctx.message.from.id, { links: user[0].links })
+                                   // user[0].links.push(" " + links[0])
+                                    updateUser(ctx.message.from.id, { links: links[0] })
                                         .then((data, error) => {
 
                                         });
@@ -380,8 +380,8 @@ ${couponList}
 
                                     else {
                                         idCatcher(links[0]).then(response_link => {
-                                            user[0].links.push(" " + links[0])
-                                            updateUser(ctx.message.from.id, { links: user[0].links })
+                                         //   user[0].links.push(" " + links[0])
+                                            updateUser(ctx.message.from.id, { links: links[0] })
                                                 .then((data, error) => {
 
                                                 });
