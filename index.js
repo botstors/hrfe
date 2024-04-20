@@ -87,7 +87,7 @@ bot.command(['start', 'help'], async (ctx) => {
     const replyMarkup = await {
         inline_keyboard: [
 
-            [{ text: 'اشترك في قناة', url: Channel }],
+            [{ text: 'اشترك في قناة', url: "https://t.me/NSshoping" }],
             [{ text: '🛒 تخفيض العملات على منتجات السلة 🛒', callback_data: 'cart' },],
 
         ],
