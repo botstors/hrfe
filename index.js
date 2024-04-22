@@ -108,7 +108,7 @@ bot.command(['start', 'help'], async (ctx) => {
     if (user[0]) { // kayen
         await ctx.reply(welcomeMessage, { reply_markup: replyMarkup });
     } else {
-        await createUser({ id: ctx.message.from.id, links: [] })
+        await createUser({ id: ctx.message.from.id, links: [],idlink:[] })
             .then(async (data, error) => {
                 await ctx.reply(welcomeMessage, { reply_markup: replyMarkup });
             });
@@ -245,13 +245,18 @@ bot.on('text', async (ctx) => {
                             else {
                                 idCatcher(links[0]).then(response_link => {
                                     console.log(response_link)
-                                                  user[0].links.push(" " + links[0])
-                                    updateUser(ctx.message.from.id, { links: user[0].links })
+                                        user[0].links.push(" " + links[0])
+                                    // updateUser(ctx.message.from.id, { links: user[0].links })
+                                    //     .then((data, error) => {
+
+                                    //     });
+                                    aliExpressLib.getData(response_link)
+                                        .then((coinPi) => {
+                                            user[0].idlink.push(" " +response_link)
+                                        updateUser(ctx.message.from.id, { links: user[0].links ,idlink:  user[0].idlink})
                                         .then((data, error) => {
 
                                         });
-                                    aliExpressLib.getData(response_link)
-                                        .then((coinPi) => {
                                             console.log("coinPi : ", coinPi)
                                             let couponList = "";
 
@@ -347,7 +352,7 @@ ${couponList}
 
 
                 } else {
-                    await createUser({ id: ctx.message.from.id, links: [] })
+                    await createUser({ id: ctx.message.from.id, links: [],idlink:[] })
                         .then(async (data, error) => {
                             ctx.reply('انتظر قليلا ...')
                                 .then((message) => {
@@ -381,12 +386,17 @@ ${couponList}
                                     else {
                                         idCatcher(links[0]).then(response_link => {
                                                      user[0].links.push(" " + links[0])
-                                    updateUser(ctx.message.from.id, { links: user[0].links })
-                                                .then((data, error) => {
+                                    // updateUser(ctx.message.from.id, { links: user[0].links })
+                                    //             .then((data, error) => {
 
-                                                });
+                                    //             });
                                             aliExpressLib.getData(response_link)
                                                 .then((coinPi) => {
+                                                         user[0].idlink.push(" " +response_link)
+                                                         updateUser(ctx.message.from.id, { links: user[0].links ,idlink:  user[0].idlink})
+                                        .then((data, error) => {
+
+                                        });
                                                     console.log("coinPi : ", coinPi)
                                                     let couponList = "";
 
