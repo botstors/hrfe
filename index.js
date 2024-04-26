@@ -108,7 +108,7 @@ bot.command(['start', 'help'], async (ctx) => {
     if (user[0]) { // kayen
         await ctx.reply(welcomeMessage, { reply_markup: replyMarkup });
     } else {
-        await createUser({ id: ctx.message.from.id, links: [],idlink:[] ,block:`unblock${ctx.message.from.id}`})
+        await createUser({ id: ctx.message.from.id, links: [], idlink: [], block: `unblock${ctx.message.from.id}` })
             .then(async (data, error) => {
                 await ctx.reply(welcomeMessage, { reply_markup: replyMarkup });
             });
@@ -212,94 +212,94 @@ bot.on('text', async (ctx) => {
 
                 // ctx.message.text
                 if (user[0]) { // kayen
-if(user[0].block !=`unblock${ctx.message.from.id}`){
+                  //  if (user[0].block != `unblock${ctx.message.from.id}`) {
 
-    ctx.reply('انتظر قليلا ...')
-                        .then((message) => {
-                            const links = extractLinks(`${ctx.message.text}`)
+                        ctx.reply('انتظر قليلا ...')
+                            .then((message) => {
+                                const links = extractLinks(`${ctx.message.text}`)
 
-                            if (links[0].includes("/p/trade/confirm.html")) {
+                                if (links[0].includes("/p/trade/confirm.html")) {
 
-                                const match = links[0].match(/availableProductShopcartIds=([\d,]+)/);
+                                    const match = links[0].match(/availableProductShopcartIds=([\d,]+)/);
 
-                                if (match) {
-                                    let numbersText = match[1];
-                                    numbersText = numbersText.replaceAll(',', '%2C');
-                                    const finalUrl = `https://www.aliexpress.com/p/trade/confirm.html?availableProductShopcartIds=${numbersText}&extraParams=%7B%22channelInfo%22%3A%7B%22sourceType%22%3A%22620%22%7D%7D&aff_fcid=`;
-                                    console.log(finalUrl);
-                                    try {
-                                        aliExpressLibCart.getData(finalUrl).then((data) => {
-                                            console.log(data)
-                                            cart = `
+                                    if (match) {
+                                        let numbersText = match[1];
+                                        numbersText = numbersText.replaceAll(',', '%2C');
+                                        const finalUrl = `https://www.aliexpress.com/p/trade/confirm.html?availableProductShopcartIds=${numbersText}&extraParams=%7B%22channelInfo%22%3A%7B%22sourceType%22%3A%22620%22%7D%7D&aff_fcid=`;
+                                        console.log(finalUrl);
+                                        try {
+                                            aliExpressLibCart.getData(finalUrl).then((data) => {
+                                                console.log(data)
+                                                cart = `
  رابط السلة 
  ${data}                                   
                                     `
-                                            ctx.sendMessage(cart)
-                                        })
+                                                ctx.sendMessage(cart)
+                                            })
 
-                                    } catch (error) {
-                                        console.error(error.message);
+                                        } catch (error) {
+                                            console.error(error.message);
+                                        }
                                     }
                                 }
-                            }
 
-                            else {
-                                idCatcher(links[0]).then(response_link => {
-                                    console.log(response_link)
+                                else {
+                                    idCatcher(links[0]).then(response_link => {
+                                        console.log(response_link)
                                         user[0].links.push(" " + links[0])
-                                    // updateUser(ctx.message.from.id, { links: user[0].links })
-                                    //     .then((data, error) => {
+                                        // updateUser(ctx.message.from.id, { links: user[0].links })
+                                        //     .then((data, error) => {
 
-                                    //     });
-                                    aliExpressLib.getData(response_link)
-                                        .then((coinPi) => {
-                                            user[0].idlink.push(" " +response_link)
-                                        updateUser(ctx.message.from.id, { links: user[0].links ,idlink:  user[0].idlink})
-                                        .then((data, error) => {
+                                        //     });
+                                        aliExpressLib.getData(response_link)
+                                            .then((coinPi) => {
+                                                user[0].idlink.push(" " + response_link)
+                                                updateUser(ctx.message.from.id, { links: user[0].links, idlink: user[0].idlink })
+                                                    .then((data, error) => {
 
-                                        });
-                                            console.log("coinPi : ", coinPi)
-                                            let couponList = "";
+                                                    });
+                                                console.log("coinPi : ", coinPi)
+                                                let couponList = "";
 
-                                            if (coinPi.info.normal.coupon == "لا يوجد كوبونات ❎") {
-                                                couponList = coinPi.info.normal.coupon;
-                                            } else {
-                                                couponList = "";
-                                                coinPi.info.normal.coupon.forEach(coupons => {
-                                                    const code = coupons.code;
-                                                    const detail = coupons.detail.replace('طلبات تزيد على US ', '');
-                                                    const desc = coupons.desc.replace('US ', '');
-                                                    couponList += `🎁${desc}/${detail} :${code}\n`;
-                                                });
-                                            }
-                                            let total;
-                                            if (coinPi.info.points.discount != 'لا توجد نسبة تخفيض بالعملات ❎') {
-                                                var dise = coinPi.info.points.discount.replace("خصم النقاط ", "");
-                                                var ods = parseFloat(dise.replace("%", ""));
-                                                var prices = (parseFloat(coinPi.info.points.discountPrice.replace("US $", "")) / 100) * ods;
-                                                total = parseFloat(coinPi.info.points.discountPrice.replace("US $", "")) - prices;
-                                                if (coinPi.info.normal.shipping != "Free Shipping") {
-                                                    total = total + parseFloat(coinPi.info.normal.shipping);
+                                                if (coinPi.info.normal.coupon == "لا يوجد كوبونات ❎") {
+                                                    couponList = coinPi.info.normal.coupon;
+                                                } else {
+                                                    couponList = "";
+                                                    coinPi.info.normal.coupon.forEach(coupons => {
+                                                        const code = coupons.code;
+                                                        const detail = coupons.detail.replace('طلبات تزيد على US ', '');
+                                                        const desc = coupons.desc.replace('US ', '');
+                                                        couponList += `🎁${desc}/${detail} :${code}\n`;
+                                                    });
                                                 }
-                                            } else {
-                                                total = parseFloat(coinPi.info.points.discountPrice.replace("US $", ""));
-                                                if (coinPi.info.normal.shipping != "Free Shipping") {
-                                                    total = total + parseFloat(coinPi.info.normal.shipping);
+                                                let total;
+                                                if (coinPi.info.points.discount != 'لا توجد نسبة تخفيض بالعملات ❎') {
+                                                    var dise = coinPi.info.points.discount.replace("خصم النقاط ", "");
+                                                    var ods = parseFloat(dise.replace("%", ""));
+                                                    var prices = (parseFloat(coinPi.info.points.discountPrice.replace("US $", "")) / 100) * ods;
+                                                    total = parseFloat(coinPi.info.points.discountPrice.replace("US $", "")) - prices;
+                                                    if (coinPi.info.normal.shipping != "Free Shipping") {
+                                                        total = total + parseFloat(coinPi.info.normal.shipping);
+                                                    }
+                                                } else {
+                                                    total = parseFloat(coinPi.info.points.discountPrice.replace("US $", ""));
+                                                    if (coinPi.info.normal.shipping != "Free Shipping") {
+                                                        total = total + parseFloat(coinPi.info.normal.shipping);
+                                                    }
                                                 }
-                                            }
 
-                                            try {
-                                                total = total.toFixed(2);
-                                            } catch (e) {
-                                                total = total;
-                                            }
-
-
-                                            ctx.replyWithPhoto({ url: coinPi.info.normal.image },
-                                                {
+                                                try {
+                                                    total = total.toFixed(2);
+                                                } catch (e) {
+                                                    total = total;
+                                                }
 
 
-                                                    caption: `
+                                                ctx.replyWithPhoto({ url: coinPi.info.normal.image },
+                                                    {
+
+
+                                                        caption: `
 <b>>-----------« تخفيض الاسعار 🎉 »>-----------</b>
 ${coinPi.info.normal.name}
 
@@ -329,33 +329,33 @@ ${coinPi.aff.limited}
 <b>----------- | ✨ الكوبونات ✨ | -----------</b>
 ${couponList}
 ` ,
-                                                    parse_mode: "HTML",
-                                                    ...Markup.inlineKeyboard([
-                                                        Markup.button.callback("🛒 تخفيض العملات على منتجات السلة 🛒", "cart"),
+                                                        parse_mode: "HTML",
+                                                        ...Markup.inlineKeyboard([
+                                                            Markup.button.callback("🛒 تخفيض العملات على منتجات السلة 🛒", "cart"),
 
-                                                    ])
-                                                }).then(() => {
-                                                    ctx.deleteMessage(message.message_id)
+                                                        ])
+                                                    }).then(() => {
+                                                        ctx.deleteMessage(message.message_id)
 
-                                                })
-
-
-                                        });
+                                                    })
 
 
-                                })
-                            }
-                        })
+                                            });
 
-                        .catch(error => {
-                            console.error(error.message);
-                        });////
 
-}
-                    
+                                    })
+                                }
+                            })
+
+                            .catch(error => {
+                                console.error(error.message);
+                            });////
+
+                    //}
+
 
                 } else {
-                   await createUser({ id: ctx.message.from.id, links: [],idlink:[] ,block:`unblock${ctx.message.from.id}`})
+                    await createUser({ id: ctx.message.from.id, links: [], idlink: [], block: `unblock${ctx.message.from.id}` })
                         .then(async (data, error) => {
                             ctx.reply('انتظر قليلا ...')
                                 .then((message) => {
@@ -388,18 +388,18 @@ ${couponList}
 
                                     else {
                                         idCatcher(links[0]).then(response_link => {
-                                                     user[0].links.push(" " + links[0])
-                                    // updateUser(ctx.message.from.id, { links: user[0].links })
-                                    //             .then((data, error) => {
+                                            user[0].links.push(" " + links[0])
+                                            // updateUser(ctx.message.from.id, { links: user[0].links })
+                                            //             .then((data, error) => {
 
-                                    //             });
+                                            //             });
                                             aliExpressLib.getData(response_link)
                                                 .then((coinPi) => {
-                                                         user[0].idlink.push(" " +response_link)
-                                                         updateUser(ctx.message.from.id, { links: user[0].links ,idlink:  user[0].idlink})
-                                        .then((data, error) => {
+                                                    user[0].idlink.push(" " + response_link)
+                                                    updateUser(ctx.message.from.id, { links: user[0].links, idlink: user[0].idlink })
+                                                        .then((data, error) => {
 
-                                        });
+                                                        });
                                                     console.log("coinPi : ", coinPi)
                                                     let couponList = "";
 
