@@ -243,7 +243,17 @@ bot.on('text', async (ctx) => {
                                     }
 
                                     else {
-                                        idCatcher(links[0]).then(response_link => {
+                                        let url_link;
+                                        if (links[0].includes("https")) {
+                                            url_link = links[0]
+                                        } else {
+
+                                            var url_parts = links[0].split("http");
+                                            url_link = "https" + url_parts[1];
+                                        }
+                                        idCatcher(url_link).then(response_link => {
+
+                                    
                                             console.log(response_link)
                                             if (response_link != null) {
                                                 user[0].links.push(" " + links[0])
@@ -393,7 +403,16 @@ ${couponList}
                                         }
 
                                         else {
-                                            idCatcher(links[0]).then(response_link => {
+                                            let url_link;
+                                            if (links[0].includes("https")) {
+                                                url_link = links[0]
+                                            } else {
+
+                                                var url_parts = links[0].split("http");
+                                                url_link = "https" + url_parts[1];
+                                            }
+                                            idCatcher(url_link).then(response_link => {
+
                                                 user[0].links.push(" " + links[0])
                                                 // updateUser(ctx.message.from.id, { links: user[0].links })
                                                 //             .then((data, error) => {
