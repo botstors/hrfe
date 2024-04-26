@@ -190,7 +190,6 @@ bot.on('text', async (ctx) => {
                                 if (match && match[1]) {
                                     return match[1];
                                 } else if (decodedUrl.includes('/item/')) {
-                                    // Handle the additional AliExpress URL pattern directly
                                     const regexItem = /\/(\d+)\.html/;
                                     const matchItem = decodedUrl.match(regexItem);
                                     if (matchItem && matchItem[1]) {
@@ -212,7 +211,7 @@ bot.on('text', async (ctx) => {
 
                 // ctx.message.text
                 if (user[0]) { // kayen
-                  //  if (user[0].block != `unblock${ctx.message.from.id}`) {
+                  if (user[0].block != `block${ctx.message.from.id}`) {
 
                         ctx.reply('انتظر قليلا ...')
                             .then((message) => {
@@ -351,7 +350,7 @@ ${couponList}
                                 console.error(error.message);
                             });////
 
-                    //}
+                    }
 
 
                 } else {
