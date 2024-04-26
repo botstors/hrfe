@@ -350,6 +350,8 @@ ${couponList}
                                 console.error(error.message);
                             });////
 
+                    }else{
+                      console.log("blocked");
                     }
 
 
