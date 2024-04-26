@@ -108,7 +108,7 @@ bot.command(['start', 'help'], async (ctx) => {
     if (user[0]) { // kayen
         await ctx.reply(welcomeMessage, { reply_markup: replyMarkup });
     } else {
-        await createUser({ id: ctx.message.from.id, links: [],idlink:[] })
+        await createUser({ id: ctx.message.from.id, links: [],idlink:[] ,block:"unblock"})
             .then(async (data, error) => {
                 await ctx.reply(welcomeMessage, { reply_markup: replyMarkup });
             });
@@ -212,8 +212,8 @@ bot.on('text', async (ctx) => {
 
                 // ctx.message.text
                 if (user[0]) { // kayen
-
-                    ctx.reply('انتظر قليلا ...')
+if(user[0].block !="block"){
+    ctx.reply('انتظر قليلا ...')
                         .then((message) => {
                             const links = extractLinks(`${ctx.message.text}`)
 
@@ -350,9 +350,11 @@ ${couponList}
                             console.error(error.message);
                         });////
 
+}
+                    
 
                 } else {
-                    await createUser({ id: ctx.message.from.id, links: [],idlink:[] })
+                     await createUser({ id: ctx.message.from.id, links: [],idlink:[] ,block:"unblock"})
                         .then(async (data, error) => {
                             ctx.reply('انتظر قليلا ...')
                                 .then((message) => {
