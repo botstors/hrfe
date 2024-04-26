@@ -248,61 +248,61 @@ bot.on('text', async (ctx) => {
                                         else {
                                             idCatcher(links[0]).then(response_link => {
                                                 console.log(response_link)
-                                                if (response_link != null) {
-                                                    user[0].links.push(" " + links[0])
-                                                    // updateUser(ctx.message.from.id, { links: user[0].links })
-                                                    //     .then((data, error) => {
+                           
+                                                user[0].links.push(" " + links[0])
+                                                // updateUser(ctx.message.from.id, { links: user[0].links })
+                                                //     .then((data, error) => {
 
-                                                    //     });
-                                                    aliExpressLib.getData(response_link)
-                                                        .then((coinPi) => {
-                                                            user[0].idlink.push(" " + response_link)
-                                                            updateUser(ctx.message.from.id, { links: user[0].links, idlink: user[0].idlink })
-                                                                .then((data, error) => {
+                                                //     });
+                                                aliExpressLib.getData(response_link)
+                                                    .then((coinPi) => {
+                                                        user[0].idlink.push(" " + response_link)
+                                                        updateUser(ctx.message.from.id, { links: user[0].links, idlink: user[0].idlink })
+                                                            .then((data, error) => {
 
-                                                                });
-                                                            console.log("coinPi : ", coinPi)
-                                                            let couponList = "";
+                                                            });
+                                                        console.log("coinPi : ", coinPi)
+                                                        let couponList = "";
 
-                                                            if (coinPi.info.normal.coupon == "لا يوجد كوبونات ❎") {
-                                                                couponList = coinPi.info.normal.coupon;
-                                                            } else {
-                                                                couponList = "";
-                                                                coinPi.info.normal.coupon.forEach(coupons => {
-                                                                    const code = coupons.code;
-                                                                    const detail = coupons.detail.replace('طلبات تزيد على US ', '');
-                                                                    const desc = coupons.desc.replace('US ', '');
-                                                                    couponList += `🎁${desc}/${detail} :${code}\n`;
-                                                                });
+                                                        if (coinPi.info.normal.coupon == "لا يوجد كوبونات ❎") {
+                                                            couponList = coinPi.info.normal.coupon;
+                                                        } else {
+                                                            couponList = "";
+                                                            coinPi.info.normal.coupon.forEach(coupons => {
+                                                                const code = coupons.code;
+                                                                const detail = coupons.detail.replace('طلبات تزيد على US ', '');
+                                                                const desc = coupons.desc.replace('US ', '');
+                                                                couponList += `🎁${desc}/${detail} :${code}\n`;
+                                                            });
+                                                        }
+                                                        let total;
+                                                        if (coinPi.info.points.discount != 'لا توجد نسبة تخفيض بالعملات ❎') {
+                                                            var dise = coinPi.info.points.discount.replace("خصم النقاط ", "");
+                                                            var ods = parseFloat(dise.replace("%", ""));
+                                                            var prices = (parseFloat(coinPi.info.points.discountPrice.replace("US $", "")) / 100) * ods;
+                                                            total = parseFloat(coinPi.info.points.discountPrice.replace("US $", "")) - prices;
+                                                            if (coinPi.info.normal.shipping != "Free Shipping") {
+                                                                total = total + parseFloat(coinPi.info.normal.shipping);
                                                             }
-                                                            let total;
-                                                            if (coinPi.info.points.discount != 'لا توجد نسبة تخفيض بالعملات ❎') {
-                                                                var dise = coinPi.info.points.discount.replace("خصم النقاط ", "");
-                                                                var ods = parseFloat(dise.replace("%", ""));
-                                                                var prices = (parseFloat(coinPi.info.points.discountPrice.replace("US $", "")) / 100) * ods;
-                                                                total = parseFloat(coinPi.info.points.discountPrice.replace("US $", "")) - prices;
-                                                                if (coinPi.info.normal.shipping != "Free Shipping") {
-                                                                    total = total + parseFloat(coinPi.info.normal.shipping);
-                                                                }
-                                                            } else {
-                                                                total = parseFloat(coinPi.info.points.discountPrice.replace("US $", ""));
-                                                                if (coinPi.info.normal.shipping != "Free Shipping") {
-                                                                    total = total + parseFloat(coinPi.info.normal.shipping);
-                                                                }
+                                                        } else {
+                                                            total = parseFloat(coinPi.info.points.discountPrice.replace("US $", ""));
+                                                            if (coinPi.info.normal.shipping != "Free Shipping") {
+                                                                total = total + parseFloat(coinPi.info.normal.shipping);
                                                             }
+                                                        }
 
-                                                            try {
-                                                                total = total.toFixed(2);
-                                                            } catch (e) {
-                                                                total = total;
-                                                            }
-
-
-                                                            ctx.replyWithPhoto({ url: coinPi.info.normal.image },
-                                                                {
+                                                        try {
+                                                            total = total.toFixed(2);
+                                                        } catch (e) {
+                                                            total = total;
+                                                        }
 
 
-                                                                    caption: `
+                                                        ctx.replyWithPhoto({ url: coinPi.info.normal.image },
+                                                            {
+
+
+                                                                caption: `
 <b>>-----------« تخفيض الاسعار 🎉 »>-----------</b>
 ${coinPi.info.normal.name}
 
@@ -332,23 +332,18 @@ ${coinPi.aff.limited}
 <b>----------- | ✨ الكوبونات ✨ | -----------</b>
 ${couponList}
 ` ,
-                                                                    parse_mode: "HTML",
-                                                                    ...Markup.inlineKeyboard([
-                                                                        Markup.button.callback("🛒 تخفيض العملات على منتجات السلة 🛒", "cart"),
+                                                                parse_mode: "HTML",
+                                                                ...Markup.inlineKeyboard([
+                                                                    Markup.button.callback("🛒 تخفيض العملات على منتجات السلة 🛒", "cart"),
 
-                                                                    ])
-                                                                }).then(() => {
-                                                                    ctx.deleteMessage(message.message_id)
+                                                                ])
+                                                            }).then(() => {
+                                                                ctx.deleteMessage(message.message_id)
 
-                                                                })
+                                                            })
 
 
-                                                        });//
-                                                } else {
-                                                    ctx.reply('الرابط غير ')
-
-                                                }
-                                           
+                                                    });//
 
                                             })
                                         }
