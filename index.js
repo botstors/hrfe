@@ -205,6 +205,7 @@ bot.on('text', async (ctx) => {
                             }
                         }
                         console.error('Invalid ID or URL provided');
+                        ctx.reply('الرابط غير صالح')
                         return null;
                     };
 
