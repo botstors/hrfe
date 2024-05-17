@@ -268,19 +268,19 @@ bot.on('text', async (ctx) => {
 
                                                             });
                                                         console.log("coinPi : ", coinPi)
-                                                        let couponList = "";
+                                                        // let couponList = "";
 
-                                                        if (coinPi.info.normal.coupon == "لا يوجد كوبونات ❎") {
-                                                            couponList = coinPi.info.normal.coupon;
-                                                        } else {
-                                                            couponList = "";
-                                                            coinPi.info.normal.coupon.forEach(coupons => {
-                                                                const code = coupons.code;
-                                                                const detail = coupons.detail.replaceAll('طلبات تزيد على US ', '');
-                                                                const desc = coupons.desc.replace('US ', '');
-                                                                couponList += `🎁${desc}/${detail} :${code}\n`;
-                                                            });
-                                                        }
+                                                        // if (coinPi.info.normal.coupon == "لا يوجد كوبونات ❎") {
+                                                        //     couponList = coinPi.info.normal.coupon;
+                                                        // } else {
+                                                        //     couponList = "";
+                                                        //     coinPi.info.normal.coupon.forEach(coupons => {
+                                                        //         const code = coupons.code;
+                                                        //         const detail = coupons.detail.replaceAll('طلبات تزيد على US ', '');
+                                                        //         const desc = coupons.desc.replace('US ', '');
+                                                        //         couponList += `🎁${desc}/${detail} :${code}\n`;
+                                                        //     });
+                                                        // }
                                                         let total;
                                                         if (coinPi.info.points.discount != 'لا توجد نسبة تخفيض بالعملات ❎') {
                                                             var dise = coinPi.info.points.discount.replace("خصم النقاط ", "");
@@ -336,7 +336,6 @@ ${coinPi.aff.super}
 📌رابط العرض المحدود: ${coinPi.info.limited.price}
 ${coinPi.aff.limited}
 <b>----------- | ✨ الكوبونات ✨ | -----------</b>
-${couponList}
 ` ,
                                                                 parse_mode: "HTML",
                                                                 ...Markup.inlineKeyboard([
