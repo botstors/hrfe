@@ -60,7 +60,7 @@ class AliExpressLibrary {
 
             const responses = await Promise.all([
                 axios.post(this.API_URL, new URLSearchParams(allParams)),
-                axios.get(`https://coinzy-u0g3.onrender.com/fetch?id=${id}`)
+                axios.get(`https://alifetcher.onrender.com/info?id=${id}&lang=en_US`)
             ]);
             const affRes = {};
             responses.forEach((response, index) => {
