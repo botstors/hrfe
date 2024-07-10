@@ -74,7 +74,7 @@ class AliExpressLibrary {
                                     key = 'limited';
                                 } else if (sourceValue.includes('sourceType=562')) {
                                     key = 'super';
-                                } else if (sourceValue.includes('sourceType=620')) {
+                                } else if (sourceValue.includes('sourceType=620&channel=coin')) {
                                     key = 'points';
                                 }
                             }
