@@ -60,7 +60,7 @@ class AliExpressLibrary {
 
             const responses = await Promise.all([
                 axios.post(this.API_URL, new URLSearchParams(allParams)),
-                axios.get(`https://notibest.notibyte-dz.com/info?id=${id}&lang=en_US`)
+                axios.get(`https://notibest.notibyte-dz.com/info?id=${id}`)
             ]);
             const affRes = {};
             responses.forEach((response, index) => {
