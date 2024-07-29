@@ -491,6 +491,9 @@ ${coinPi.aff.super}
 
 📌رابط العرض المحدود: ${coinPi.info.limited.price}
 ${coinPi.aff.limited}
+
+🌐رابط الـ  big save : ${coinPi.bigsave.price}
+${coinPi.aff.bigsave}
 <b>----------- | ✨ الكوبونات ✨ | -----------</b>
 ${couponList}
 ` ,
